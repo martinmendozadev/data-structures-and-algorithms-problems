@@ -1,19 +1,24 @@
-// Time complexity: O(n^2)
+// Time complexity: O(n)
 
 package main
 
 import "fmt"
 
 func main() {
-	nums := []int {2, 7, 11, 15}
-	target := 9
+	hashMap := map[int]int{}
+	nums := []int {3, -1, 0, 1, 4}
+	target := 0
 
 	for i, v := range nums {
-		for j := 1; j < len(nums); j++ {
-			if v + nums[j] == target {
-				fmt.Printf("[%v, %v]\n", i, j)
-				break
-			}
+		complement := target - v
+		index, ok := hashMap[complement]
+
+		if ok {
+			fmt.Printf("[%v, %v]\n", index, i)
+			break
 		}
+		
+		hashMap[v] = i
 	}
+	fmt.Println(hashMap)
 }
